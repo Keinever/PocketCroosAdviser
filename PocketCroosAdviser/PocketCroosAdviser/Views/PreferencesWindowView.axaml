@@ -1,0 +1,55 @@
+<ContentControl xmlns="https://github.com/avaloniaui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:viewModels="clr-namespace:PocketCroosAdviser.ViewModels"
+                mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                x:Class="PocketCroosAdviser.Views.PreferencesWindowView"
+                x:DataType="viewModels:PreferencesWindowViewModel">
+    <ContentControl.Styles>
+        <StyleInclude Source="/Views/AllWindowViewStyles.axaml"/>
+    </ContentControl.Styles>
+    
+    <Grid RowDefinitions="*, 6*">
+        <Border ClipToBounds="True" Classes='header' Grid.Row="0">
+            <Border.Effect>   
+                <DropShadowEffect BlurRadius="15" /> 
+            </Border.Effect> 
+            <Grid ColumnDefinitions="*,*,*">
+                <Button Margin='10, 0, 0 ,0 ' Command="{Binding $parent[Window].((viewModels:MainViewModel)DataContext).OpenProfile}" VerticalAlignment='Center' HorizontalAlignment='Left'  Grid.Column="0">
+                    <Image Source="/Assets/Images/back.png"/>
+                </Button>
+                <TextBlock Text="Created with love by “Pocket Corporation”" VerticalAlignment='Center' HorizontalAlignment="Center" Grid.Column="1"/>
+                <TextBlock Margin='0, 0, 10 ,0 ' Text="Предпочтения" VerticalAlignment='Center' HorizontalAlignment='Right' Grid.Column="2"/>
+            </Grid>
+        </Border>
+        <Border Classes='body' ClipToBounds="True" Grid.Row="1" Background="#626FD4">
+            <Border.Effect>   
+                <DropShadowEffect BlurRadius="15" /> 
+            </Border.Effect>
+            <ScrollViewer Background="#626FD4" CornerRadius="50">
+                <ItemsControl ItemsSource="{Binding  Ganres}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Classes.class1="{Binding Picked }"
+                                    Classes.class2="{Binding !Picked }" Margin="20" ClipToBounds="True" CornerRadius="50">
+                                <Border.Effect>   
+                                    <DropShadowEffect BlurRadius="15" /> 
+                                </Border.Effect>
+                                <Grid Height="100" ColumnDefinitions="*, *">
+                                    <TextBlock Text="{Binding Name}" Margin="20,0,0,0" FontSize="30" VerticalAlignment='Center' HorizontalAlignment="Left" Grid.Column="0"/>
+                                    <Button  Classes.class1="{Binding Picked }"
+                                             Classes.class2="{Binding !Picked }" Command="{Binding  $parent[UserControl].((viewModels:PreferencesWindowViewModel)DataContext).PickedGanre}" CommandParameter="{Binding  Id}" VerticalAlignment='Center' HorizontalAlignment='Right' Margin="0,0,20,0" Grid.Column="1">
+                                        <Button.Effect>
+                                            <DropShadowEffect Color="Black" BlurRadius="16" Opacity="0.5" />
+                                        </Button.Effect>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</ContentControl>

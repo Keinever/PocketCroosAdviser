@@ -1,0 +1,36 @@
+<!-- move to styles-->
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="Border.header">
+        <Setter Property="Background" Value="#626FD4"/>
+        <Setter Property="CornerRadius" Value='100'/>
+        <Setter Property="Margin" Value='0, 20, 0, 0'/>
+    </Style>
+    <Style Selector="Grid.body">
+        <Setter Property="Margin" Value='50, 50, 50, 50'/>
+    </Style>
+    <Style Selector="Border.body">
+        <Setter Property="Margin" Value='50, 50, 50, 50'/>
+        <Setter Property="CornerRadius" Value='50'/>
+    </Style>
+    <Style Selector="Border.movie">
+        <Setter Property="Background" Value="#626FD4"/>
+        <Setter Property="CornerRadius" Value='50'/>
+    </Style>
+    <Style Selector="Border.Buttons">
+        <Setter Property="Background" Value="#626FD4"/>
+        <Setter Property="CornerRadius" Value='50'/>
+    </Style>
+    <Style Selector="Border.class1">
+        <Setter Property="Background" Value="Green"/>
+    </Style>
+    <Style Selector="Border.class2">
+        <Setter Property="Background" Value="#D307F4"/>
+    </Style>
+    <Style Selector="Button.class1">
+        <Setter Property="Content" Value="-"/>
+    </Style>
+    <Style Selector="Button.class2">
+        <Setter Property="Content" Value="+"/>
+    </Style>
+</Styles>

@@ -1,0 +1,85 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:PocketCroosAdviser.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PocketCroosAdviser.Views.GreetingWindowView"
+             x:DataType="viewModels:GreetingWindowViewModel">
+    <UserControl.Styles>
+        <StyleInclude Source="/Views/AllWindowViewStyles.axaml"/>
+    </UserControl.Styles>
+    
+    <Grid RowDefinitions="*, 6*">
+        <Border ClipToBounds="True" Classes='header' Grid.Row="0">
+            <Border.Effect>   
+                <DropShadowEffect BlurRadius="15" /> 
+            </Border.Effect> 
+            <Grid ColumnDefinitions="*,*,*">
+                <TextBlock Margin='10, 0, 0 ,0 ' Text="Pocket Adviser" VerticalAlignment='Center' HorizontalAlignment='Left' Grid.Column="0"/>
+                <TextBlock Text="Created with love by “Pocket Corporation”" VerticalAlignment='Center' HorizontalAlignment="Center" Grid.Column="1"/>
+                <Button Margin='0, 0, 10 ,0 ' Command="{Binding $parent[UserControl].((viewModels:MainViewModel)DataContext).OpenProfile}" VerticalAlignment='Center' HorizontalAlignment='Right'  Grid.Column="2">
+                    <Image Source="/Assets/Images/menu.png"/>
+                </Button>
+            </Grid>
+        </Border>
+        <Grid  Classes='body' ColumnDefinitions="3.42*, 0.15*, *" Grid.Row="1">
+            <Border Classes='movie' Grid.Column="0">
+                <Border.Effect>   
+                    <DropShadowEffect BlurRadius="15" /> 
+                </Border.Effect> 
+                <Grid RowDefinitions="*, 7*, 0.5*, 2.5*,*">
+                    <Grid Grid.Row="1" ColumnDefinitions="*, 0.1*, *, 0.1*">
+                        <Image Grid.Column="0" asyncImageLoader:ImageLoader.Source="{Binding FilmPhoto}" />
+                        <Border BorderBrush="Chocolate" BorderThickness="3,3,3,3" CornerRadius="10" Grid.Column="2">
+                        <Grid RowDefinitions="2*,3*">
+                            
+                            <TextBlock Text="{Binding FilmName}" VerticalAlignment='Center' HorizontalAlignment='Center'  FontSize="30" TextWrapping="Wrap"/>
+                            <Grid Grid.Row="1" RowDefinitions="*,*,*">
+                                <TextBlock Grid.Row="0" Margin="0,0,5,0" Text="{Binding FilmCountry}" TextWrapping="Wrap" VerticalAlignment='Center' HorizontalAlignment='Right'/>
+                                <TextBlock Grid.Row="1" Margin="0,0,5,0" Text="{Binding FilmDate}" TextWrapping="Wrap" VerticalAlignment='Center' HorizontalAlignment='Right'/>
+                                <TextBlock Grid.Row="2" Margin="0,0,5,0" Text="{Binding FilmRaiting}" TextWrapping="Wrap" VerticalAlignment='Center' HorizontalAlignment='Right'/>
+                            </Grid>
+                        </Grid>
+                        </Border>
+                    </Grid>
+                    <Border BorderBrush="Chocolate" BorderThickness="3,3,3,3" CornerRadius="10" Margin="5,0,10,0" Grid.Row="3">
+                        <Border.Effect>   
+                            <DropShadowEffect BlurRadius="15" /> 
+                        </Border.Effect> 
+                        <TextBlock Margin="5" FontSize="14" Text="{Binding FilmDescription}" TextWrapping="Wrap" VerticalAlignment='Top' HorizontalAlignment='Left'/>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border Classes='Buttons' Grid.Column="2">
+                <Border.Effect>   
+                    <DropShadowEffect BlurRadius="15" /> 
+                </Border.Effect> 
+                <Grid RowDefinitions="0.35*,*,*,*,*,*,*">
+                    <Button Command="{Binding Change_Film}" VerticalAlignment='Center' HorizontalAlignment='Center'  Grid.Row="1">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="16" Opacity="0.5" />
+                        </Button.Effect>
+                        <Image Source="/Assets/Images/Ellipse 1.png"/>
+                    </Button>
+                    <TextBlock VerticalAlignment='Center' HorizontalAlignment='Center' Grid.Row="2" Text="обновить" />
+                    <Button Command="{Binding SaveFilm}" VerticalAlignment='Center' HorizontalAlignment='Center'  Grid.Row="3">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="16" Opacity="0.5" />
+                        </Button.Effect>
+                        <Image Source="/Assets/Images/Ellipse 2.png"/>
+                    </Button>
+                    <TextBlock VerticalAlignment='Center' HorizontalAlignment='Center' Grid.Row="4" Text="добавить в закладки" />
+                    <Button Command="{Binding AddInBl}" VerticalAlignment='Center' HorizontalAlignment='Center'  Grid.Row="5">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="16" Opacity="0.5" />
+                        </Button.Effect>
+                        <Image Source="/Assets/Images/Ellipse 3.png"/>
+                    </Button>
+                    <TextBlock TextAlignment='Center' TextWrapping='WrapWithOverflow' VerticalAlignment='Center' HorizontalAlignment='Center' Grid.Row="6" Text="добавить в чёрный список" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
