@@ -19,9 +19,7 @@
             <Grid ColumnDefinitions="*,*,*">
                 <TextBlock Margin='10, 0, 0 ,0 ' Text="Pocket Adviser" VerticalAlignment='Center' HorizontalAlignment='Left' Grid.Column="0"/>
                 <TextBlock Text="Created with love by “Pocket Corporation”" VerticalAlignment='Center' HorizontalAlignment="Center" Grid.Column="1"/>
-                <Button Margin='0, 0, 10 ,0 ' Command="{Binding $parent[UserControl].((viewModels:MainViewModel)DataContext).OpenProfile}" VerticalAlignment='Center' HorizontalAlignment='Right'  Grid.Column="2">
-                    <Image Source="/Assets/Images/menu.png"/>
-                </Button>
+                <Image Source="/Assets/Images/menu.png" VerticalAlignment='Center' HorizontalAlignment='Right'  Grid.Column="2"/>
             </Grid>
         </Border>
         <Grid  Classes='body' ColumnDefinitions="3.42*, 0.15*, *" Grid.Row="1">

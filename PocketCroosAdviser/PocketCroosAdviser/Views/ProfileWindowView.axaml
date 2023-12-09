@@ -17,16 +17,14 @@
                 <DropShadowEffect BlurRadius="15" /> 
             </Border.Effect> 
             <Grid ColumnDefinitions="*,*,*">
-                <Button Margin='10, 0, 0 ,0 '  Command="{Binding $parent[UserControl].((viewModels:MainViewModel)DataContext).OpenGreeting}"  VerticalAlignment='Center' HorizontalAlignment='Left'  Grid.Column="0">
-                    <Image Source="/Assets/Images/back.png"/>
-                </Button>
+                <TextBlock Text="Pocket Adviser" Margin='10, 0, 0 ,0 ' VerticalAlignment='Center' HorizontalAlignment='Left'  Grid.Column="0"/>
                 <TextBlock Text="Created with love by “Pocket Corporation”" VerticalAlignment='Center' HorizontalAlignment="Center" Grid.Column="1"/>
                 <TextBlock Margin='0, 0, 10 ,0 ' Text="Мой Профиль" VerticalAlignment='Center' HorizontalAlignment='Right' Grid.Column="2"/>
             </Grid>
         </Border>
         <Grid  Classes='body' ColumnDefinitions="0.7*, 0.15*, *" Grid.Row="1">
             <Image Grid.Column="0" asyncImageLoader:ImageLoader.Source="{Binding FilmPhoto}"/>
-            <Grid Grid.Column="2" RowDefinitions="1.4*, *">
+            <Grid Grid.Column="2" RowDefinitions="Auto">
                 <Border Grid.Row="0" Background="#626FD4" CornerRadius="50">
                     <Border.Effect>   
                         <DropShadowEffect BlurRadius="15" /> 
@@ -37,54 +35,6 @@
                         <TextBlock Grid.Row="2" Margin="0,0,5,0" Text="{Binding FilmDate}" TextWrapping="Wrap" VerticalAlignment='Center' HorizontalAlignment='Right'/>
                     </Grid>
                 </Border>
-                <Grid Grid.Row="1" ColumnDefinitions="*,*,*">
-                    <Border Grid.Column="0" Background="#626FD4" CornerRadius="50">
-                        <Border.Effect>   
-                            <DropShadowEffect BlurRadius="15" /> 
-                        </Border.Effect>
-                        <Grid RowDefinitions="*,*">
-                            <Button Command="{Binding $parent[Window].((viewModels:MainViewModel)DataContext).OpenMarkers}" VerticalAlignment='Center' HorizontalAlignment='Center' Margin="0,30,0,0" Grid.Row="0">
-                                <Button.Effect>
-                                    <DropShadowEffect Color="Black" BlurRadius="16" Opacity="0.5" />
-                                </Button.Effect>
-                                <Image Source="/Assets/Images/marker.png"/>
-                            </Button>
-                            <TextBlock TextAlignment='Center' TextWrapping='WrapWithOverflow' VerticalAlignment='Center' HorizontalAlignment='Center' Grid.Row="1" Text="Закладки" />
-                        </Grid>
-                    </Border>
-                    <Border Grid.Column="1" Background="#626FD4" CornerRadius="50">
-                        <Border.Effect>   
-                            <DropShadowEffect BlurRadius="15" /> 
-                        </Border.Effect>
-                        <Grid RowDefinitions="*,*">
-                            <Button Command="{Binding $parent[Window].((viewModels:MainViewModel)DataContext).OpenBlackList}" VerticalAlignment='Center' HorizontalAlignment='Center' Margin="0,30,0,0" Grid.Row="0">
-                                <Button.Effect>
-                                    <DropShadowEffect Color="Black" BlurRadius="16" Opacity="0.5" />
-                                </Button.Effect>
-                                <Image Source="/Assets/Images/black_list.png"/>
-                            </Button>
-                            <TextBlock TextAlignment='Center' TextWrapping='WrapWithOverflow' VerticalAlignment='Center' HorizontalAlignment='Center' Grid.Row="1" Text="Черный Лист" />
-                        </Grid>
-                    </Border>
-                    <Border Grid.Column="2" Background="#626FD4" CornerRadius="50">
-                        <Border.Effect>   
-                            <DropShadowEffect BlurRadius="15" /> 
-                        </Border.Effect> 
-                        <Grid RowDefinitions="*,*">
-                            <Button Command="{Binding OpenPreferences}" VerticalAlignment='Center' HorizontalAlignment='Center' Margin="0,30,0,0" Grid.Row="0"
-                                    x:DataType="viewModels:MainViewModel">
-                                <Button.DataContext>
-                                    <viewModels:MainViewModel />
-                                </Button.DataContext>
-                                <Button.Effect>
-                                    <DropShadowEffect Color="Black" BlurRadius="16" Opacity="0.5" />
-                                </Button.Effect>
-                                <Image Source="/Assets/Images/preferences.png"/>
-                            </Button>
-                            <TextBlock TextAlignment='Center' TextWrapping='WrapWithOverflow' VerticalAlignment='Center' HorizontalAlignment='Center' Grid.Row="1" Text="Предпочтения" />
-                        </Grid>
-                    </Border>
-                </Grid>
             </Grid>
         </Grid>
     </Grid>

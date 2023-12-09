@@ -1,54 +1,52 @@
 using System;
-using System.ComponentModel;
+using System.Reactive;
+using System.Runtime.Serialization;
+using System.Windows.Input;
 using Avalonia.Controls;
-using Avalonia.ReactiveUI;
 using PocketCroosAdviser.Data;
 using ReactiveUI;
 
 namespace PocketCroosAdviser.ViewModels;
 
-public class MainViewModel: ViewModelBase
+[DataContract]
+public class MainViewModel: ReactiveObject, IScreen
 {
-    private static ViewModelBase? _content;
+    private readonly ReactiveCommand<Unit, Unit> _greeting;
+    private readonly ReactiveCommand<Unit, Unit> _profile;
+    private readonly ReactiveCommand<Unit, Unit> _marks;
+    private readonly ReactiveCommand<Unit, Unit> _blackl;
+    private readonly ReactiveCommand<Unit, Unit> _pref;
+    private RoutingState _router = new RoutingState();
+    
+    
     private static PocketContext _db = new();
     
     public MainViewModel()
     {
         _db.Database.EnsureCreated();
-        Content = new  ProfileWindowViewModel(_db);
+        _greeting = ReactiveCommand.Create(
+            () => { Router.Navigate.Execute(new GreetingWindowViewModel(_db)); });
+        _profile = ReactiveCommand.Create(
+            () => { Router.Navigate.Execute(new ProfileWindowViewModel(_db)); });
+        _marks = ReactiveCommand.Create(
+            () => { Router.Navigate.Execute(new MarkersWindowViewModel(_db)); });
+        _blackl = ReactiveCommand.Create(
+            () => { Router.Navigate.Execute(new BlackListWindowViewModel(_db)); });
+        _pref = ReactiveCommand.Create(
+            () => { Router.Navigate.Execute(new PreferencesWindowViewModel(_db)); });
+        
     }
     
-    public ViewModelBase? Content
+    [DataMember]
+    public RoutingState Router
     {
-        get => _content;
-        private set => this.RaiseAndSetIfChanged(ref _content, value);
+        get => _router;
+        set => this.RaiseAndSetIfChanged(ref _router, value);
     }
     
-    public void OpenProfile()
-    {
-        Console.WriteLine("hahahahahahahahahahahahahahhaha");
-        Content = new ProfileWindowViewModel(_db);
-    }
-    
-    public void OpenGreeting()
-    {
-        Content = new GreetingWindowViewModel(_db);
-    }
-
-    public void OpenPreferences()
-    {
-        Console.WriteLine("NONONOJONONONO");
-        Content = new PreferencesWindowViewModel(_db);
-    }
-    
-    public void OpenMarkers()
-    {
-        Content = new MarkersWindowViewModel(_db);
-    }
-    
-    public void OpenBlackList()
-    {
-        Content = new BlackListWindowViewModel(_db);
-    }
-    
+    public ICommand Greeting => _greeting;
+    public ICommand Profile => _profile;
+    public ICommand Marks => _marks;
+    public ICommand Blackl => _blackl;
+    public ICommand Pref => _pref;
 }

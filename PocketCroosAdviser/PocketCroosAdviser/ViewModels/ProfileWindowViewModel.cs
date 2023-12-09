@@ -1,21 +1,28 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PocketCroosAdviser.Data;
 using PocketCroosAdviser.Models;
 using ReactiveUI;
+using Splat;
 
 namespace PocketCroosAdviser.ViewModels
 {
 
-    public class ProfileWindowViewModel : ViewModelBase
+    public class ProfileWindowViewModel : ViewModelBase, IRoutableViewModel
     {
-        private static PocketContext _dbFilms;
+        private PocketContext _dbFilms;
 
-        public ProfileWindowViewModel(PocketContext db)
+        public string UrlPathSegment => "/profile";
+        
+        public ProfileWindowViewModel(PocketContext db, IScreen? screen = null)
         {
             _dbFilms = db;
+            HostScreen = (screen ?? Locator.Current.GetService<IScreen>()) ?? throw new InvalidOperationException();
         }
+        
+        public IScreen HostScreen { get; }
 
         public async Task LoadData()
         {

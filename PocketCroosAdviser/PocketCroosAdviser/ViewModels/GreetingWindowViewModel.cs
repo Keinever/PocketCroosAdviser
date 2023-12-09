@@ -8,16 +8,22 @@ using Newtonsoft.Json;
 using PocketCroosAdviser.Data;
 using PocketCroosAdviser.Models;
 using ReactiveUI;
+using Splat;
 
 namespace PocketCroosAdviser.ViewModels
 {
-    public class GreetingWindowViewModel: ViewModelBase
+    public class GreetingWindowViewModel: ViewModelBase, IRoutableViewModel
     {
-        public GreetingWindowViewModel(PocketContext db)
+
+        public string UrlPathSegment => "/greeting";
+        
+        public GreetingWindowViewModel(PocketContext db, IScreen? screen = null)
         {
             _dbFilms = db;
-            HideFilm();
+            HostScreen = (screen ?? Locator.Current.GetService<IScreen>()) ?? throw new InvalidOperationException();
         }
+        
+        public IScreen HostScreen { get; }
         
         public async Task HideFilm()
         {
@@ -44,7 +50,7 @@ namespace PocketCroosAdviser.ViewModels
         }
 
         private string? _url = string.Empty;
-        private static string? _name = "Идёт поиск фильма...";
+        private static string? _name = "Чтобы искать, нажмите обновить...";
         private static string? _country = string.Empty;
         private static string? _date = string.Empty;
         private string? _raiting = string.Empty;
@@ -95,7 +101,7 @@ namespace PocketCroosAdviser.ViewModels
         public async Task SaveFilm()
         {
             Film filmMy = new Film { Name = _name, Photo =_url, Description = _description, Raiting = _raiting, Country = _country, Date = _date};
-            var myFilms = _dbFilms.Films.Where(x => x != null && x.Name == filmMy.Name).Select(x => x).ToList();
+            var myFilms = _dbFilms.Films.Where(x => x.Name == filmMy.Name).Select(x => x).ToList();
             if (!myFilms.Any())
             {
                 await _dbFilms.Films.AddAsync(filmMy);
@@ -141,7 +147,6 @@ namespace PocketCroosAdviser.ViewModels
                 ganreForApi = string.Empty;
             }
             client.DefaultRequestHeaders.Add("X-API-KEY", ConfigurationManager.AppSettings["X-API-KEY"]);
-            Console.WriteLine(String.Format(ApiUrl,ganreForApi, page));
             HttpResponseMessage response = await client.GetAsync(String.Format(ApiUrl,ganreForApi, page));
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();

@@ -7,18 +7,39 @@ using Microsoft.EntityFrameworkCore;
 using PocketCroosAdviser.Data;
 using PocketCroosAdviser.Models;
 using ReactiveUI;
+using Splat;
 
 namespace PocketCroosAdviser.ViewModels
 {
 
-    public class PreferencesWindowViewModel : ViewModelBase
+    public class PreferencesWindowViewModel : ViewModelBase, IRoutableViewModel
     {
-        private static PocketContext _dbGanres = null!;
-        public PreferencesWindowViewModel(PocketContext db)
+
+        public string UrlPathSegment => "/pref";
+        
+        public PreferencesWindowViewModel(PocketContext db, IScreen? screen = null)
         {
             _dbGanres = db;
-            _ganres = new(_dbGanres.Ganres.Select(x => x).ToList());
+            HostScreen = (screen ?? Locator.Current.GetService<IScreen>()) ?? throw new InvalidOperationException();
+            _ganres = new();
         }
+        
+        public async Task LoadData()
+        {
+            try
+            {
+                var data = await _dbGanres.Ganres.ToArrayAsync();
+
+                Ganres.AddRange(data);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        
+        public IScreen HostScreen { get; }
+        private static PocketContext _dbGanres = null!;
         
         ObservableCollection<Ganres> _ganres;
 

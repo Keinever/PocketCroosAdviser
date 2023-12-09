@@ -6,18 +6,25 @@ using DynamicData;
 using Microsoft.EntityFrameworkCore;
 using PocketCroosAdviser.Data;
 using PocketCroosAdviser.Models;
+using ReactiveUI;
+using Splat;
 
 namespace PocketCroosAdviser.ViewModels
 {
-        public class BlackListWindowViewModel: ViewModelBase
+        public class BlackListWindowViewModel: ViewModelBase, IRoutableViewModel
         {
-            private static PocketContext _dbFilms = null!;
-            public BlackListWindowViewModel(PocketContext db)
+
+            public string UrlPathSegment => "/blackl";
+        
+            public BlackListWindowViewModel(PocketContext db, IScreen? screen = null)
             {
                 _dbFilms = db;
+                HostScreen = (screen ?? Locator.Current.GetService<IScreen>()) ?? throw new InvalidOperationException();
                 BlFilms = new();
             }
-
+        
+            public IScreen HostScreen { get; }
+            private static PocketContext _dbFilms = null!;
             private ObservableCollection<BlFilm> BlFilms { get; }
 
 

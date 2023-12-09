@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:PocketCroosAdviser.ViewModels"
+             xmlns:reactiveUi="http://reactiveui.net"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PocketCroosAdviser.Views.MainView"
              x:DataType="vm:MainViewModel"
@@ -11,6 +12,43 @@
         <vm:MainViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <ContentControl Content="{Binding Content}"></ContentControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <reactiveUi:RoutedViewHost Grid.Row="0" Router="{Binding Router}">
+            <reactiveUi:RoutedViewHost.DefaultContent>
+                <TextBlock TextWrapping="Wrap" Text="Это приложение для поиска фильмов, снизу меню для управления страницами" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50"/>
+            </reactiveUi:RoutedViewHost.DefaultContent>
+        </reactiveUi:RoutedViewHost>
+        <Grid Grid.Row="1">
+            <Grid ColumnDefinitions="*,*,*,*,*">
+                <Button Grid.Column="0" 
+                        Height="50"
+                        Command="{Binding Greeting}"
+                        Content="Главная страница" 
+                        HorizontalAlignment="Center"/>
+                <Button Grid.Column="1" 
+                        Height="50"
+                        Command="{Binding Profile}"
+                        Content="Профиль" 
+                        HorizontalAlignment="Center"/>
+                <Button Grid.Column="2" 
+                        Height="50"
+                        Command="{Binding Marks}"
+                        Content="Закладки"
+                        HorizontalAlignment="Center"/>
+                <Button Grid.Column="3"
+                        Height="50"
+                        Command="{Binding Blackl}"
+                        Content="Чёрный список"
+                        HorizontalAlignment="Center"/>
+                <Button Grid.Column="4" 
+                        Height="50"
+                        Command="{Binding Pref}"
+                        Content="Предпочтения"
+                        HorizontalAlignment="Center"/>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
