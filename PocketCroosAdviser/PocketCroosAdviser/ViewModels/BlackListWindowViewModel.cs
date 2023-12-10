@@ -20,12 +20,18 @@ namespace PocketCroosAdviser.ViewModels
             {
                 _dbFilms = db;
                 HostScreen = (screen ?? Locator.Current.GetService<IScreen>()) ?? throw new InvalidOperationException();
-                BlFilms = new();
+                _blFilms = new();
             }
         
             public IScreen HostScreen { get; }
             private static PocketContext _dbFilms = null!;
-            private ObservableCollection<BlFilm> BlFilms { get; }
+            private ObservableCollection<BlFilm> _blFilms;
+
+            public ObservableCollection<BlFilm> BlFilms
+            {
+                get => _blFilms;
+                set => this.RaiseAndSetIfChanged(ref _blFilms, value);
+            }
 
 
 
